@@ -101,7 +101,7 @@ module CombinePDF
         end
         object[:indirect_reference_id] ||= 0
         object[:indirect_generation_number] ||= 0
-        return "#{object[:indirect_reference_id]} #{object[:indirect_generation_number]} R".force_encoding(Encoding::ASCII_8BIT)
+        return "#{object[:indirect_reference_id]} #{object[:indirect_generation_number]} R".dup.force_encoding(Encoding::ASCII_8BIT)
       end
 
       # if the object is indirect...
@@ -109,7 +109,7 @@ module CombinePDF
       if object[:indirect_reference_id]
         object[:indirect_reference_id] ||= 0
         object[:indirect_generation_number] ||= 0
-        out << "#{object[:indirect_reference_id]} #{object[:indirect_generation_number]} obj\n".force_encoding(Encoding::ASCII_8BIT)
+        out << "#{object[:indirect_reference_id]} #{object[:indirect_generation_number]} obj\n".dup.force_encoding(Encoding::ASCII_8BIT)
         if object[:indirect_without_dictionary]
           out << object_to_pdf(object[:indirect_without_dictionary])
           out << "\nendobj\n"
